@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {changeFirstColor, changeLastColor} from "../../store/gradients";
+import {direction, firstColor, lastColor, type} from "../../store/gradients";
 
 @Component({
   selector: 'Gradient',
@@ -10,33 +10,21 @@ import {changeFirstColor, changeLastColor} from "../../store/gradients";
 })
 export class GradientComponent implements OnInit {
 
-  private  readonly store: Store = inject(Store);
+  private readonly store: Store = inject(Store);
 
-  direction!: string;
-  firstColor!: string;
-  lastColor!: string;
-  type!: string;
+  direction = this.store.selectSignal(direction);
+  firstColor = this.store.selectSignal(firstColor);
+  lastColor = this.store.selectSignal(lastColor);
+  type = this.store.selectSignal(type);
   result!: string;
 
   ngOnInit() {
     this.initGradient();
-    this.changeState();
   }
 
   initGradient() {
-    this.direction = 'to right';
-    this.firstColor = 'red';
-    this.lastColor = 'blue';
-    this.type = 'linear';
-    if (this.type === 'linear') {
-      this.result = `linear-gradient(${this.direction}, ${this.firstColor}, ${this.lastColor})`;
-    } else {
-      this.result = `radial-gradient(circle at center, ${this.firstColor}, ${this.lastColor})`;
-    }
-  }
-
-  changeState() {
-    this.store.dispatch(changeFirstColor({color:'#F0F'}));
-    this.store.dispatch(changeLastColor({color:'#0F0'}));
+    this.result = this.type() === 'linear' ?
+      `linear-gradient(${this.direction()}, ${this.firstColor()}, ${this.lastColor()})` :
+      `radial-gradient(circle at center, ${this.firstColor()}, ${this.lastColor()})`;
   }
 }
