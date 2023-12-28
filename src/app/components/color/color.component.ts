@@ -1,9 +1,10 @@
 import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'color',
+  selector: 'Color',
   templateUrl: './color.component.html',
-  styleUrls: ['./color.component.sass']
+  styleUrls: ['./color.component.scss'],
+  standalone: true
 })
 export class ColorComponent {
 
