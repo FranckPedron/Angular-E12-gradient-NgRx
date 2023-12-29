@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {direction, firstColor, lastColor, type} from "../../store/gradients";
+import {selectDirection, selectFirstColor, selectLastColor, selectType} from "../../store/gradients";
 
 @Component({
   selector: 'Gradient',
@@ -13,10 +13,10 @@ export class GradientComponent implements OnInit {
 
   private readonly store: Store = inject(Store);
 
-  direction = this.store.selectSignal(direction);
-  firstColor = this.store.selectSignal(firstColor);
-  lastColor = this.store.selectSignal(lastColor);
-  type = this.store.selectSignal(type);
+  direction = this.store.selectSignal(selectDirection);
+  firstColor = this.store.selectSignal(selectFirstColor);
+  lastColor = this.store.selectSignal(selectLastColor);
+  type = this.store.selectSignal(selectType);
   result = computed(() => {
       return this.type() === 'linear' ?
         `linear-gradient(${this.direction()}, ${this.firstColor()}, ${this.lastColor()})` :

@@ -1,11 +1,24 @@
-import {createReducer, on} from "@ngrx/store";
-import * as GradientActions from "./gradients.actions";
+import {createFeature, createReducer, on} from "@ngrx/store";
+import {changeDirection, changeFirstColor, changeLastColor, toggleRadialMode} from "./gradients.actions";
 import {initialState} from "./gradients.state";
 
-export const gradientsReducers= createReducer(
-  initialState,
-  on(GradientActions.changeFirstColor, (state, action) => ({...state, nbColors: state.nbColors +1, firstColor: action.color})),
-  on(GradientActions.changeLastColor, (state, action) => ({...state, nbColors: state.nbColors +1, lastColor: action.color})),
-  on(GradientActions.changeDirection, (state, action) => ({...state, direction: action.direction })),
-  on(GradientActions.toggleRadialMode, state => ({...state, type: state.type === 'radial'? 'linear': 'radial'}))
-  );
+const gradientFeature = createFeature({
+  name: 'gradients',
+  reducer: createReducer(
+    initialState,
+    on(changeFirstColor, (state, action) => ({...state, nbColors: state.nbColors + 1, firstColor: action.color})),
+    on(changeLastColor, (state, action) => ({...state, nbColors: state.nbColors + 1, lastColor: action.color})),
+    on(changeDirection, (state, action) => ({...state, direction: action.direction})),
+    on(toggleRadialMode, state => ({...state, type: state.type === 'radial' ? 'linear' : 'radial'}))
+  )
+})
+
+export const {
+  name: gradientFeatureKey,
+  reducer: gradientReducer,
+  selectFirstColor,
+  selectLastColor,
+  selectType,
+  selectDirection,
+  selectNbColors
+} = gradientFeature

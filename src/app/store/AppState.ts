@@ -1,5 +1,5 @@
-import {GradientState} from "./gradients";
+import {GradientStateInterface} from "./gradients";
 
 export interface AppState {
-  gradients: GradientState
+  gradients: GradientStateInterface
 }

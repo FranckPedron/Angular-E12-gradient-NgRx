@@ -1,4 +1,4 @@
-export interface GradientState {
+export interface GradientStateInterface {
   firstColor: string,
   lastColor: string,
   direction: string,
@@ -6,7 +6,7 @@ export interface GradientState {
   type: string
 }
 
-export const initialState: GradientState = {
+export const initialState: GradientStateInterface = {
   firstColor: '#123456',
   lastColor: '#654321',
   direction: '90deg',

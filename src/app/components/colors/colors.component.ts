@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {ColorComponent} from "../color/color.component";
 import {Store} from "@ngrx/store";
-import {firstColor, lastColor} from "../../store/gradients";
+import {selectFirstColor, selectLastColor} from "../../store/gradients";
 
 @Component({
   selector: 'Colors',
@@ -15,8 +15,9 @@ import {firstColor, lastColor} from "../../store/gradients";
 export class ColorsComponent implements OnInit {
   private readonly store: Store = inject(Store);
 
-  firstColor = this.store.selectSignal(firstColor);
-  lastColor= this.store.selectSignal(lastColor);
+  firstColor = this.store.selectSignal(selectFirstColor);
+  lastColor = this.store.selectSignal(selectLastColor);
 
-  ngOnInit() {  }
+  ngOnInit() {
+  }
 }
